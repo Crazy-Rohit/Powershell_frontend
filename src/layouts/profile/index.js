@@ -30,7 +30,7 @@ function Overview() {
             <Welcome />
           </Grid>
 
-          {/* Car Info Section */}
+          
           // <Grid item xs={12} xl={5} xxl={6}>
           //   <CarInformations />
           // </Grid>
