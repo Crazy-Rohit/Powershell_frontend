@@ -31,7 +31,7 @@ function Overview() {
           </Grid>
 
           
-          // <Grid item xs={12} xl={5} xxl={6}>
+  {/*<Grid item xs={12} xl={5} xxl={6}>
           //   <CarInformations />
           // </Grid>
 
