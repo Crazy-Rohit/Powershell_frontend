@@ -83,15 +83,15 @@ function Dashboard() {
   };
 
   const topApps = {
-    labels: analysis.top_apps?.y || [],
-    datasets: [
-      {
-        label: "Usage Count",
-        data: analysis.top_apps?.x || [],
-        backgroundColor: "#26a69a",
-      },
-    ],
-  };
+  labels: analysis.top_apps?.x || [],   // app names on X-axis
+  datasets: [
+    {
+      label: "Usage Count",
+      data: analysis.top_apps?.y || [], // numeric counts as bar values
+      backgroundColor: "#26a69a",
+    },
+  ],
+};
 
   const hourlyActivity = {
     labels: analysis.hourly_activity?.x || [],
@@ -104,6 +104,41 @@ function Dashboard() {
     ],
   };
 
+
+const hourlyActivityOptions = {
+  scales: {
+    x: {
+      ticks: {
+        callback: (value) => {
+          // value is the label like "10", "21", etc.
+          const h = parseInt(value, 10);
+          if (Number.isNaN(h)) return value; // fallback if not a number
+
+          const suffix = h >= 12 ? "p.m." : "a.m.";
+          let displayHour = h % 12;
+          if (displayHour === 0) displayHour = 12; // 0 -> 12, 12 -> 12
+
+          return `${displayHour}:00 ${suffix}`;
+        },
+        color: "#ffffff",
+      },
+    },
+    y: {
+      ticks: {
+        color: "#ffffff",
+      },
+    },
+  },
+  plugins: {
+    legend: {
+      labels: {
+        color: "#ffffff",
+      },
+    },
+  },
+};
+  
+  
   const categoryDist = {
     labels: analysis.category_distribution?.labels || [],
     datasets: [
@@ -248,7 +283,7 @@ function Dashboard() {
                 <VuiTypography color="white" variant="h6" mb={2}>
                   Hourly Activity
                 </VuiTypography>
-                <Bar data={hourlyActivity} />
+                <Bar data={hourlyActivity} options={hourlyActivityOptions}/>
               </Card>
             </Grid>
 
